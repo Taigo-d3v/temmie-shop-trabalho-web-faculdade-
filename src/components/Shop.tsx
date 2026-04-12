@@ -1,4 +1,5 @@
 import type { ITemItem } from '../types/shop'
+import heartCursor from '../assets/heart_cursor.png'
 
 interface ShopProps {
   items: ITemItem[]
@@ -8,7 +9,7 @@ interface ShopProps {
 }
 
 function Shop({ items, currentGold, selectedIndex, onPurchase }: ShopProps) {
-  const heartCursorSrc = '/src/assets/heart_cursor.png'
+  const heartCursorSrc = heartCursor
 
   return (
     <section className="shop-section">

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Inventory from './components/Inventory'
 import Shop from './components/Shop'
+import TemmieDialog from './components/TemmieDialog'
 import type { IPlayerInventory, ITemItem } from './types/shop'
 import { temShopItems } from './mocks/items'
 
@@ -23,6 +24,7 @@ function Dashboard({ gold, itemCount }: { gold: number; itemCount: number }) {
 function App() {
   const [playerData, setPlayerData] = useState<IPlayerInventory>(initialInventory)
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
+  const [lastPurchasedItem, setLastPurchasedItem] = useState<ITemItem | null>(null)
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -62,16 +64,23 @@ function App() {
   }, [selectedIndex])
 
   function handlePurchase(item: ITemItem) {
+    let purchased = false
+
     setPlayerData((previous) => {
       if (item.price > previous.gold) {
         return previous
       }
 
+      purchased = true
       return {
         gold: previous.gold - item.price,
         items: [...previous.items, item],
       }
     })
+
+    if (purchased) {
+      setLastPurchasedItem(item)
+    }
   }
 
   return (
@@ -94,10 +103,7 @@ function App() {
           </main>
 
           <aside className="col-12 col-lg-3">
-            <section className="mb-4 p-3 border rounded bg-white shadow-sm">
-              <h2>Temmie</h2>
-              <p>Caixa de diálogo da Temmie e o seu dashboard aparecerão aqui.</p>
-            </section>
+            <TemmieDialog lastPurchasedItem={lastPurchasedItem} />
             <Dashboard gold={playerData.gold} itemCount={playerData.items.length} />
             <Inventory inventory={playerData} />
           </aside>
