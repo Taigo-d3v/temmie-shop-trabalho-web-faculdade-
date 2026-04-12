@@ -14,16 +14,37 @@ function App() {
   const [inventory] = useState<IPlayerInventory>(initialInventory)
 
   return (
-    <div className="app-shell">
-      <header className="app-header">
-        <h1>Tem Shop</h1>
-        <p>Bem-vindo à lojinha dos Temmies. Seu ouro disponível: {inventory.gold}G</p>
+    <>
+      <header className="bg-light py-4 mb-4">
+        <div className="container">
+          <h1 className="mb-0">Tem Shop</h1>
+        </div>
       </header>
-      <main className="app-main">
-        <Inventory inventory={inventory} />
-        <Shop items={temShopItems} />
-      </main>
-    </div>
+
+      <div className="container">
+        <div className="row">
+          <main className="col-12 col-lg-9 mb-4">
+            <Shop items={temShopItems} />
+          </main>
+
+          <aside className="col-12 col-lg-3">
+            <section className="mb-4 p-3 border rounded bg-white shadow-sm">
+              <h2>Temmie</h2>
+              <p>Caixa de diálogo da Temmie e o seu dashboard aparecerão aqui.</p>
+              <p className="mb-0">Ouro disponível: <strong>{inventory.gold}G</strong></p>
+            </section>
+
+            <Inventory inventory={inventory} />
+          </aside>
+        </div>
+      </div>
+
+      <footer className="bg-light py-4 mt-4">
+        <div className="container">
+          <address />
+        </div>
+      </footer>
+    </>
   )
 }
 
