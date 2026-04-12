@@ -79,6 +79,19 @@
   font-weight: 700;
 }
 
+.shop-card.focused {
+  border-color: #f87171;
+  box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.18);
+}
+
+.heart-cursor {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
 .shop-card.on-sale {
   border-color: #38bdf8;
 }

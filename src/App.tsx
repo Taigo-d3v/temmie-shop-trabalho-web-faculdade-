@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Inventory from './components/Inventory'
 import Shop from './components/Shop'
@@ -22,6 +22,44 @@ function Dashboard({ gold, itemCount }: { gold: number; itemCount: number }) {
 
 function App() {
   const [playerData, setPlayerData] = useState<IPlayerInventory>(initialInventory)
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
+
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === 'ArrowDown') {
+        event.preventDefault()
+        setSelectedIndex((current) => {
+          if (current === null) {
+            return 0
+          }
+          return Math.min(current + 1, temShopItems.length - 1)
+        })
+      }
+
+      if (event.key === 'ArrowUp') {
+        event.preventDefault()
+        setSelectedIndex((current) => {
+          if (current === null) {
+            return temShopItems.length - 1
+          }
+          return Math.max(current - 1, 0)
+        })
+      }
+
+      if (event.key.toLowerCase() === 'z') {
+        if (selectedIndex !== null) {
+          handlePurchase(temShopItems[selectedIndex])
+        }
+      }
+
+      if (event.key.toLowerCase() === 'x') {
+        setSelectedIndex(null)
+      }
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [selectedIndex])
 
   function handlePurchase(item: ITemItem) {
     setPlayerData((previous) => {
@@ -47,7 +85,12 @@ function App() {
       <div className="container">
         <div className="row">
           <main className="col-12 col-lg-9 mb-4">
-            <Shop items={temShopItems} onPurchase={handlePurchase} currentGold={playerData.gold} />
+            <Shop
+              items={temShopItems}
+              onPurchase={handlePurchase}
+              currentGold={playerData.gold}
+              selectedIndex={selectedIndex}
+            />
           </main>
 
           <aside className="col-12 col-lg-3">
