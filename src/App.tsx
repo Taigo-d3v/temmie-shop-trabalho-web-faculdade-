@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import Inventory from './components/Inventory'
 import Shop from './components/Shop'
-import type { IPlayerInventory } from './types/shop'
+import type { IPlayerInventory, ITemItem } from './types/shop'
 import { temShopItems } from './mocks/items'
 
 const initialInventory: IPlayerInventory = {
@@ -10,8 +10,31 @@ const initialInventory: IPlayerInventory = {
   items: [],
 }
 
+function Dashboard({ gold, itemCount }: { gold: number; itemCount: number }) {
+  return (
+    <section className="mb-4 p-3 border rounded bg-white shadow-sm">
+      <h2>Dashboard</h2>
+      <p className="mb-2">Saldo atual: <strong>{gold}G</strong></p>
+      <p className="mb-0">Itens comprados: <strong>{itemCount}</strong></p>
+    </section>
+  )
+}
+
 function App() {
-  const [inventory] = useState<IPlayerInventory>(initialInventory)
+  const [playerData, setPlayerData] = useState<IPlayerInventory>(initialInventory)
+
+  function handlePurchase(item: ITemItem) {
+    setPlayerData((previous) => {
+      if (item.price > previous.gold) {
+        return previous
+      }
+
+      return {
+        gold: previous.gold - item.price,
+        items: [...previous.items, item],
+      }
+    })
+  }
 
   return (
     <>
@@ -24,17 +47,16 @@ function App() {
       <div className="container">
         <div className="row">
           <main className="col-12 col-lg-9 mb-4">
-            <Shop items={temShopItems} />
+            <Shop items={temShopItems} onPurchase={handlePurchase} currentGold={playerData.gold} />
           </main>
 
           <aside className="col-12 col-lg-3">
             <section className="mb-4 p-3 border rounded bg-white shadow-sm">
               <h2>Temmie</h2>
               <p>Caixa de diálogo da Temmie e o seu dashboard aparecerão aqui.</p>
-              <p className="mb-0">Ouro disponível: <strong>{inventory.gold}G</strong></p>
             </section>
-
-            <Inventory inventory={inventory} />
+            <Dashboard gold={playerData.gold} itemCount={playerData.items.length} />
+            <Inventory inventory={playerData} />
           </aside>
         </div>
       </div>
