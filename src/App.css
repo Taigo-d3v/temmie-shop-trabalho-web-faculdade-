@@ -1,0 +1,93 @@
+.app-shell {
+  font-family: Inter, system-ui, sans-serif;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.app-header {
+  margin-bottom: 28px;
+}
+
+.app-header h1 {
+  margin: 0 0 8px;
+  font-size: clamp(2rem, 2.5vw, 3rem);
+}
+
+.app-header p {
+  margin: 0;
+  color: #444;
+}
+
+.app-main {
+  display: grid;
+  gap: 24px;
+}
+
+.inventory-section,
+.shop-section {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+}
+
+.inventory-section h2,
+.shop-section h2 {
+  margin-top: 0;
+}
+
+.inventory-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+}
+
+.inventory-section li {
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.shop-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.shop-card {
+  padding: 18px;
+  border-radius: 16px;
+  background: #f8f8ff;
+  border: 1px solid #e3e3f0;
+}
+
+.shop-card h3 {
+  margin: 0 0 10px;
+}
+
+.shop-card p {
+  margin: 0 0 14px;
+  color: #555;
+}
+
+.shop-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+}
+
+.shop-card.on-sale {
+  border-color: #38bdf8;
+}
+
+.shop-card.expensiv {
+  border-color: #fb7185;
+}
+
+body {
+  margin: 0;
+  background: #f1f5f9;
+}
