@@ -112,7 +112,9 @@ function App() {
 
       <footer className="bg-light py-4 mt-4">
         <div className="container">
-          <address />
+          <address>
+            Tiago — 12 de abril de 2026 — Disciplina: Desenvolvimento de Software WEB - Prof. Alexandre Cláudio de Almeida
+          </address>
         </div>
       </footer>
     </>

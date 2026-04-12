@@ -1,73 +1,42 @@
-# React + TypeScript + Vite
+# Tem Shop — Projeto de Desenvolvimento de Software WEB
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Arquitetura e justificativa
 
-Currently, two official plugins are available:
+Este projeto usa React com TypeScript e Vite para manter um fluxo leve de desenvolvimento e build rápido. A arquitetura busca separar responsabilidades em componentes claros e reutilizáveis:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- `App.tsx`: componente raiz. Gerencia o estado global da loja, a navegação por teclado e a ligação entre os componentes principais.
+- `Dashboard`: componente local em `App.tsx` responsável por exibir o saldo atual de ouro (`G`) e a contagem de itens comprados.
+- `TemmieDialog`: componente em `src/components/TemmieDialog.tsx` responsável por apresentar a imagem do Temmie e renderizar falas específicas de acordo com o último item comprado.
+- `Shop` / item list: componente em `src/components/Shop.tsx` que mostra os produtos disponíveis e responde aos cliques de compra. Ele atua como a lista de itens do jogo.
 
-## React Compiler
+A separação acima mantém o `App` como controlador do estado e as demais peças como elementos de exibição, aumentando a clareza e facilitando futuras extensões.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Navegação por teclado
 
-## Expanding the ESLint configuration
+A navegação por teclado foi integrada via `useEffect` em `App.tsx`, escutando `keydown` no `window`:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- `ArrowDown` e `ArrowUp`: movem o foco entre os itens da lista incrementando ou decrementando `selectedIndex`.
+- `Z`: dispara `handlePurchase` para o item atualmente focado, simulando a ação de compra.
+- `X`: limpa o foco e faz com que nenhum item esteja selecionado.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Essa lógica é mantida em estado React, de modo que o componente é sempre renderizado de acordo com `selectedIndex` e o visual se atualiza automaticamente.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Bootstrap e estilo do jogo
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+O Bootstrap via CDN foi usado para estruturar o layout responsivo com o sistema de grid:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- `main` ocupa 9 colunas em desktop e 12 em mobile.
+- `aside` ocupa 3 colunas em desktop e 12 em mobile.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Por cima do Bootstrap, criamos um `styles.css` externo para forçar um estilo escuro, tipografia pixelada (`VT323`) e aparência inspirada em Undertale. Isso permite combinar a responsividade do Bootstrap com o estilo visual do jogo.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Componentes principais
+
+- `App.tsx`: controlador de fluxo. Mantém o estado do inventário e o índice selecionado.
+- `Dashboard`: computa e mostra o saldo e quantidade de itens.
+- `TemmieDialog`: renderiza a imagem do Temmie e adapta a fala conforme o item comprado.
+- `Shop` (ItemList): lista os produtos, exibe o cursor de seleção e permite comprar itens.
+
+## Conclusão
+
+A arquitetura foi escolhida para manter o React como camada de estado e renderização, enquanto o Bootstrap cuida da estrutura responsiva. O componente `TemmieDialog` adiciona personalidade ao projeto sem misturar lógica de negócios, e a navegação por teclado foi integrada de forma reativa, preservando a experiência esperada para um jogo inspirado em Undertale.
