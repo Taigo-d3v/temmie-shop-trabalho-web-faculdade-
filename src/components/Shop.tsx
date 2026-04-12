@@ -6,9 +6,10 @@ interface ShopProps {
   currentGold: number
   selectedIndex: number | null
   onPurchase: (item: ITemItem) => void
+  onCardClick: (index: number, item: ITemItem) => void
 }
 
-function Shop({ items, currentGold, selectedIndex, onPurchase }: ShopProps) {
+function Shop({ items, currentGold, selectedIndex, onPurchase, onCardClick }: ShopProps) {
   const heartCursorSrc = heartCursor
 
   return (
@@ -22,7 +23,8 @@ function Shop({ items, currentGold, selectedIndex, onPurchase }: ShopProps) {
           return (
             <article
               key={item.id}
-              className={`shop-card ${item.status.replace(' ', '-')} ${isSelected ? 'focused' : ''}`}
+              className={`shop-card ${item.status.replace(' ', '-')} ${isSelected ? 'focused' : ''} p-3 mb-3`}
+              onClick={() => onCardClick(index, item)}
             >
               <h3>
                 {item.name}
@@ -41,11 +43,14 @@ function Shop({ items, currentGold, selectedIndex, onPurchase }: ShopProps) {
               </div>
               <button
                 type="button"
-                className="btn btn-primary mt-3"
-                onClick={() => onPurchase(item)}
+                className="btn btn-primary mt-3 w-100"
+                onClick={(event) => {
+                  event.stopPropagation()
+                  onPurchase(item)
+                }}
                 disabled={!canBuy}
               >
-                {canBuy ? 'Comprar' : 'Sem G suficiente'}
+                {isSelected ? 'Comprar (Z)' : canBuy ? 'Comprar' : 'Sem G suficiente'}
               </button>
             </article>
           )

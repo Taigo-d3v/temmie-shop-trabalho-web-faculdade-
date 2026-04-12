@@ -83,6 +83,15 @@ function App() {
     }
   }
 
+  function handleCardClick(index: number, item: ITemItem) {
+    if (selectedIndex === index) {
+      handlePurchase(item)
+      return
+    }
+
+    setSelectedIndex(index)
+  }
+
   return (
     <>
       <header className="bg-light py-4 mb-4">
@@ -97,6 +106,7 @@ function App() {
             <Shop
               items={temShopItems}
               onPurchase={handlePurchase}
+              onCardClick={handleCardClick}
               currentGold={playerData.gold}
               selectedIndex={selectedIndex}
             />
