@@ -16,7 +16,8 @@
 
 .app-header p {
   margin: 0;
-  color: #ffffff;
+  color: #444;
+  
 }
 
 .app-main {
@@ -26,9 +27,10 @@
 
 .inventory-section,
 .shop-section {
-  background: #000000;
+  background: #050505;
+  border: 1px solid #000000;
+  border-radius: 18px;
   padding: 24px;
-  color: #ffffff;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
 }
 
@@ -45,8 +47,6 @@
 
 .inventory-section li {
   padding: 10px 0;
-  border-bottom: 1px solid #ffffff;
-  color: #ffffff;
 }
 
 .shop-grid {
@@ -58,18 +58,16 @@
 .shop-card {
   padding: 18px;
   border-radius: 16px;
-  background: #000000;
-  border: 1px solid #e3e3f0;
+  background: #0c0c0c;
 }
 
 .shop-card h3 {
   margin: 0 0 10px;
-  color: #ffffff;
 }
 
 .shop-card p {
   margin: 0 0 14px;
-  color: #949292;
+  color: #555;
 }
 
 .shop-meta {
@@ -78,7 +76,6 @@
   align-items: center;
   gap: 12px;
   font-weight: 700;
-   color: #ffffff;
 }
 
 .shop-card.focused {
@@ -89,8 +86,8 @@
 .heart-cursor {
   display: inline-block;
   width: 18px;
-  height: 18px;
   scale: 3;
+  height: 18px;
   margin-left: 10px;
   vertical-align: middle;
 }

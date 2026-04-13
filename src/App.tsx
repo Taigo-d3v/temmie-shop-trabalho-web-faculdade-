@@ -94,7 +94,7 @@ function App() {
 
   return (
     <>
-      <header className="bg-light py-4 mb-4">
+      <header className=" ">
         <div className="container">
           <h1 className="mb-0">Tem Shop</h1>
         </div>
@@ -102,7 +102,7 @@ function App() {
 
       <div className="container">
         <div className="row">
-          <main className="col-12 col-lg-9 mb-4">
+          <main className="col-lg-9 mb-4">
             <Shop
               items={temShopItems}
               onPurchase={handlePurchase}
@@ -120,8 +120,8 @@ function App() {
         </div>
       </div>
 
-      <footer className="bg-light py-4 mt-4">
-        <div className="container">
+      <footer className="texto">
+        <div className="rodape">
           <address>
             Tiago — 12 de abril de 2026 — Disciplina: Desenvolvimento de Software WEB - Prof. Alexandre Cláudio de Almeida
           </address>

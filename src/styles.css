@@ -5,9 +5,10 @@
 }
 
 body {
+  background-image: url('./assets/bg_shop.png') !important;
   font-family: 'VT323', monospace;
-  background: #050505;
-  color: #a81010;
+  color: #8f8f8f !important;
+  
   min-height: 100vh;
 }
 
@@ -16,35 +17,66 @@ input,
 textarea,
 select {
   font-family: 'VT323', monospace;
+  
 }
 
-header,
+header, .navbar, .bg-light, .bg-white {
+  background-color: transparent !important;
+  background: transparent !important;
+}
 footer,
 main,
 aside,
 section {
-  color: #ffffff;
+  background-color: transparent !important;
 }
 
 .temmie-dialog {
-  background: rgba(0, 0, 0, 0.85);
-  border: 1px solid #000000;
+  background-color: #0c0c0c9c !important;
+  border: 1px solid #444 !important;
 }
-
-.temmie-dialog-box {
-  background: rgba(0, 0, 0, 0.82);
-  border: 1px solid #666;
-}
-
 .app-shell,
 .container {
-  background: transparent;
+  background-color: rgba(0, 0, 0, 0.692) !important;
+}
+
+.rodape{
+  background-color: rgba(0, 0, 0, 0.692) !important;
+}
+.texto {
+  color: #b8b8b8 !important;
+}
+.mb-0 {
+  color: #b8b8b8 !important;
+}
+.dashboard-section, 
+section.bg-white, 
+.card.dashboard-card {
+  background-color: rgba(0, 0, 0, 0.521) !important;
+  color: #ffffff !important;
+  border: 1px solid #444 !important;
+}
+
+.dashboard-section h2, 
+.dashboard-section p, 
+.dashboard-section strong {
+  color: #ffffff !important;
 }
 
 .card,
 .shop-card,
+code {
+  background: #0c0c0c;
+  border: 1px solid #333;
+}
+.inventory-section{
+   background-color: #0c0c0c9c !important;
+   border: 1px solid #444 !important;
+}
 .inventory-section,
 .temmie-dialog,
 button {
   font-family: 'VT323', monospace;
 }
+
+
